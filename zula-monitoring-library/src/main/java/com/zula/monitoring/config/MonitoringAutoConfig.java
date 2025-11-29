@@ -1,5 +1,6 @@
 package com.zula.monitoring.config;
 
+import com.zula.monitoring.core.MetricsService;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
