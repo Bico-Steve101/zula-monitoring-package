@@ -83,7 +83,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/Bico-Steve101/zula</url>
+            <url>https://maven.pkg.github.com/Bico-Steve101/zula-monitoring-package</url>
         </repository>
     </distributionManagement>
 </project>
