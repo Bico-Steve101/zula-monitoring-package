@@ -20,6 +20,14 @@ Thumbs.db        # Windows
 *.tmp
 *.bak
 
+# GitHub Copilot artifacts
+copilot-generated.*
+.copilot/
+
+# Qodo generated files
+qodo.generated.*
+qodo/
+
 # Java-specific
 *.class
 
