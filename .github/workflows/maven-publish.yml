@@ -18,9 +18,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          server-id: github
-          server-username: GITHUB_ACTOR
-          server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish with Maven
         run: |
