@@ -7,7 +7,7 @@
 
     <groupId>com.zula</groupId>
     <artifactId>zula-monitoring-library</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>Zula Monitoring Library</name>
@@ -96,7 +96,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/Zula-Z/zula-database-package</url>
+            <url>https://maven.pkg.github.com/Zula-Z/zula-monitoring-package</url>
         </repository>
     </distributionManagement>
 </project>
