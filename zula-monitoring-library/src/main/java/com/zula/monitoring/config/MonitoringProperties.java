@@ -3,7 +3,9 @@ package com.zula.monitoring.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @ConfigurationProperties(prefix = "zula.monitoring")
@@ -76,6 +78,7 @@ public class MonitoringProperties {
         private String managementBasePath = "/actuator";
         private String metricsEndpoint = "/prometheus";
         private String healthEndpoint = "/health";
+        private List<String> skipProfiles = new ArrayList<>();
 
         public TargetProperties getGrafana() {
             return grafana;
@@ -119,6 +122,18 @@ public class MonitoringProperties {
 
         public void setHealthEndpoint(String healthEndpoint) {
             this.healthEndpoint = healthEndpoint;
+        }
+
+        public List<String> getSkipProfiles() {
+            return skipProfiles;
+        }
+
+        public void setSkipProfiles(List<String> skipProfiles) {
+            if (skipProfiles == null) {
+                this.skipProfiles = new ArrayList<>();
+            } else {
+                this.skipProfiles = new ArrayList<>(skipProfiles);
+            }
         }
     }
 

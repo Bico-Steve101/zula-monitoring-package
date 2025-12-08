@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +14,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -42,6 +44,10 @@ public class MonitoringRegistrar {
         }
 
         MonitoringProperties.RegistrationProperties registration = properties.getRegistration();
+        if (shouldSkipRegistration(registration)) {
+            log.debug("Skipping monitoring registration because a skipped profile is active");
+            return;
+        }
         String scheme = determineScheme();
         String host = resolveHost();
         int servicePort = determineServicePort();
@@ -148,6 +154,25 @@ public class MonitoringRegistrar {
 
     private String determineScheme() {
         return Boolean.parseBoolean(environment.getProperty("server.ssl.enabled", "false")) ? "https" : "http";
+    }
+
+    private boolean shouldSkipRegistration(MonitoringProperties.RegistrationProperties registration) {
+        List<String> skipProfiles = registration.getSkipProfiles();
+        if (skipProfiles == null || skipProfiles.isEmpty()) {
+            return false;
+        }
+
+        for (String profile : skipProfiles) {
+            if (!StringUtils.hasText(profile)) {
+                continue;
+            }
+            if (environment.acceptsProfiles(Profiles.of(profile))) {
+                log.debug("Monitoring registration disabled for active profile {}", profile);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private String resolveHost() {
